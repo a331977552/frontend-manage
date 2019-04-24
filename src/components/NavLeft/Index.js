@@ -1,10 +1,18 @@
-import { Layout, Menu, Icon } from 'antd';
+import {  Menu, Icon } from 'antd';
 import React from 'react';
-import './App.css';
-const {
-  Header, Content, Footer, Sider,
-} = Layout;
-class App extends React.Component {
+import './Index.css';
+
+class Index extends React.Component {
+  state = {
+    collapsed: false,
+  };
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  }
+
   onMenuClicked=({item, key, keyPath})=>{
       console.log(item);
       console.log(key);
@@ -14,15 +22,7 @@ class App extends React.Component {
   render() {
 
     return (
-        <Layout>
-          <Sider
-              width={150}
-              trigger={null}
-              collapsible
-              collapsed={this.state.collapsed}
-              style={{minHeight:'100vh'}}
-             >
-            <div className="logo" />
+        <div>
             <Menu theme="dark" onClick={this.onMenuClicked}  mode="inline" defaultSelectedKeys={['4']}>
               <Menu.Item key="1" >
                 <Icon type="user" />
@@ -57,29 +57,11 @@ class App extends React.Component {
                 <span className="nav-text">nav 8</span>
               </Menu.Item>
             </Menu>
-          </Sider>
-          <Layout >
-            <Header  style={{ background: '#fff', padding: 0 }} >
-              <Icon
-                  className="trigger"
-                  type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                  onClick={this.toggle}
-              />
-            </Header>
-            <Content style={{ margin: '16px 16px 0', overflow: 'initial' }}>
-              <div style={{ padding:16, background: '#fff', textAlign: 'center' }}>
-                ddd
-              </div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              Ant Design ©2018 Created by Ant UED
-            </Footer>
-          </Layout>
-        </Layout>
+        </div>
     );
   }
 }
 
 
-export default  App;
+export default  Index;
 
