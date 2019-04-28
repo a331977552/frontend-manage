@@ -1,67 +1,69 @@
-import {  Menu, Icon } from 'antd';
+import {Menu, Icon} from 'antd';
 import React from 'react';
 import './Index.css';
+import {Link} from "react-router-dom";
 
 class Index extends React.Component {
-  state = {
-    collapsed: false,
-  };
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  }
+	state = {
+		menu: {
+			defaultSelectedKeys: '/',
+			menuItems: [
+				{
+					key: '/',
+					name: '商品列表',
+					icon: 'user',
+					title:'商品列表'
+				},
+				{
+					key: '/product',
+					name: '添加商品',
+					icon: 'user',
+					title:'商品添加'
+				},
+				{
+					key: '/orders',
+					name: '订单',
+					icon: 'user',
+					title:'订单管理'
+				},
+				{
+					key: '/misc',
+					name: '杂项',
+					icon: 'user',
+					title:'种类与广告'
 
-  onMenuClicked=({item, key, keyPath})=>{
-      console.log(item);
-      console.log(key);
-      console.log(keyPath);
+				}
 
-  }
-  render() {
 
-    return (
-        <div>
-            <Menu theme="dark" onClick={this.onMenuClicked}  mode="inline" defaultSelectedKeys={['4']}>
-              <Menu.Item key="1" >
-                <Icon type="user" />
-                <span className="nav-text">nav 1</span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span className="nav-text">nav 2</span>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span className="nav-text">nav 3</span>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Icon type="bar-chart" />
-                <span className="nav-text">nav 4</span>
-              </Menu.Item>
-              <Menu.Item key="5">
-                <Icon type="cloud-o" />
-                <span className="nav-text">nav 5</span>
-              </Menu.Item>
-              <Menu.Item key="6">
-                <Icon type="appstore-o" />
-                <span className="nav-text">nav 6</span>
-              </Menu.Item>
-              <Menu.Item key="7">
-                <Icon type="team" />
-                <span className="nav-text">nav 7</span>
-              </Menu.Item>
-              <Menu.Item key="8">
-                <Icon type="shop" />
-                <span className="nav-text">nav 8</span>
-              </Menu.Item>
-            </Menu>
-        </div>
-    );
-  }
+			]
+		}
+	}
+
+
+	render() {
+
+		return (
+			<div>
+				<Menu theme="dark" mode="inline" defaultSelectedKeys={[this.state.menu.defaultSelectedKeys]}>
+					{
+						this.state.menu.menuItems.map((item, index) => {
+
+							return <Menu.Item key={item.key}>
+								<Icon type={item.icon}/>
+								<span className="nav-text">{item.name}</span>
+								<Link to={item.key}/>
+							</Menu.Item>
+						})
+					}
+
+
+				</Menu>
+			</div>
+		);
+	}
 }
 
 
-export default  Index;
+export default Index;
 
