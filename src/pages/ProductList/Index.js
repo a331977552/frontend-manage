@@ -1,6 +1,6 @@
 import React from 'react';
 import './Index.css';
-import {Row} from "antd";
+import {Empty, Row} from "antd";
 import ProductCard from '../../components/ProductCard/Index'
 import RetryButton from '../../components/RetryButton/Index'
 import Loading from '../../components/Loading/Index'
@@ -42,6 +42,7 @@ class Index extends React.Component {
 					:
 					(
 						loadingSuccess?
+							products.length===0?<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />:
 							<Row gutter={8} >
 							{
 							products.map((product,index)=>

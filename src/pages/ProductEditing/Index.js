@@ -139,7 +139,6 @@ class Index extends React.Component {
 
 				<Form.Item
 					label={"状态"}
-
 				>
 						<Radio.Group defaultValue="ON_SALE" buttonStyle="solid">
 							<Radio.Button value="ON_SALE">上架</Radio.Button>

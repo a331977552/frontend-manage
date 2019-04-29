@@ -18,7 +18,7 @@ class Index extends React.Component {
 				      hoverable={true}
 
 				      style={{ width: '100%' }}
-				      cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+				      cover={<img alt="example" style={{}} src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
 				      actions={[<Icon type="setting" />]}
 				>
 					<div style={{display:"flex"}}>

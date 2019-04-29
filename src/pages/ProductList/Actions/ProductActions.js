@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const PRODUCT_EDITING='PRODUCT_EDITING'
 export const PRODUCT_LOADING='PRODUCT_LOADING'
 export const PRODUCT_LOADING_FINISHED='PRODUCT_LOADING_FINISHED'
@@ -11,7 +13,6 @@ export function productEditing(product){
 }
 
 export function productLoading(loading){
-	console.log("productLoading")
 	return function(dispatch,getState){
 			dispatch({
 				type: PRODUCT_LOADING,
@@ -23,9 +24,17 @@ export function productLoading(loading){
 				}
 			});
 
+			axios.get('/typicode/demo/db3')
+			.then(function (response) {
+				console.log("success: "+response.data);
+			},function (error) {
+				console.log("rejected:"+error);
+			}).catch(function (error) {
+				console.log("exception:"+error)
+			});
+
 			setTimeout(function () {
-				var  dd=Math.random()<0.3;
-				console.log("productLoading "+ dd)
+				var  dd=Math.random()<0.8;
 				if(dd){
 					//todo loading product from network
 					dispatch(productLoadingFinished([{id:1,name:'hahah2',price:11},
