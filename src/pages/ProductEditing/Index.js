@@ -5,7 +5,6 @@ import {
 	Form, Icon, Input, Button,
 	Upload, Modal, Radio, Select
 } from 'antd';
-import {PRODUCT_EDITING} from "../../Redux/Actions/ProductActions";
 import {connect} from "react-redux";
 
 const formItemLayout = {

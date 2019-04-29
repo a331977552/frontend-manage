@@ -1,124 +1,78 @@
 import React from 'react';
 import './Index.css';
-import { Row} from "antd";
+import {Row} from "antd";
 import ProductCard from '../../components/ProductCard/Index'
-import {editProduct} from "../../Redux/Actions/ProductActions";
+import RetryButton from '../../components/RetryButton/Index'
+import Loading from '../../components/Loading/Index'
+import * as productActionCreators from "./Actions/ProductActions";
+import { bindActionCreators } from 'redux'
+
 import {connect} from "react-redux";
 
 class Index extends React.Component {
 
 	constructor(props){
 		super(props);
-		this.state={
-			products:[
-				{
-					id:'1',
-					name:'韭菜炒鸡蛋',
-					price:'10.0',
-					img:''
-				},
-				{
-					id:'23',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},
-				{
-					id:'13',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},{
-					id:'14',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},{
-					id:'15',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},{
-					id:'16',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},{
-					id:'17',
-					name:'韭菜炒鸡蛋',					price:'',
-					img:''
-				},{
-					id:'18',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},{
-					id:'19',
-					name:'韭菜炒鸡蛋',
-					price:'',
-					img:''
-				},{
-					id:'120',
-					name:'',
-					price:'',
-					img:''
-				},{
-					id:'130',
-					name:'',
-					price:'',
-					img:''
-				},{
-					id:'132',
-					name:'',
-					price:'',
-					img:''
-				},{
-					id:'44',
-					name:'',
-					price:'',
-					img:''
-				},{
-					id:'55',
-					name:'',
-					price:'',
-					img:''
-				},
-			]
-		}
+		const {dispatch}=this.props;
+		this.boundActionCreators=bindActionCreators(productActionCreators,dispatch)
+
 	}
 
 	onCardClicked=(product,index)=>{
-		this.props.onProductClicked(product);
+
+		this.props.dispatch(productActionCreators.productEditing(product));
+		// this.props.onProductClicked(product);
 		this.props.history.push('/product/edit')
+	}
+	componentWillMount() {
+
+		if(!this.props.loadingSuccess&&!this.props.loading)
+			this.props.dispatch(productActionCreators.productLoading());
+	}
+
+	onRetryClicked=(e)=>{
+		this.props.dispatch(productActionCreators.productLoading());
 	}
 
 	render() {
+		const {products,loading,loadingSuccess,errorMessage}=this.props;
 		return (
 			<div>
-				<Row gutter={8} >
-					{
-						this.state.products.map((product,index)=>
-
+				{loading?<Loading/>
+					:
+					(
+						loadingSuccess?
+							<Row gutter={8} >
+							{
+							products.map((product,index)=>
+								(
+									<ProductCard  product={product} index={index} onCardClicked={this.onCardClicked}  key={product.id} />
+								))
+							}
+							</Row>:
 							(
-								<ProductCard  product={product} index={index} onCardClicked={this.onCardClicked}  key={product.id} />
-							))
-					}
-
-
-				</Row>
-
-				,
+								<RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked} />
+							)
+					)
+				}
 			</div>
 		);
 	}
 }
-const mapDispatchToProps = dispatch => {
+/*const mapDispatchToProps = dispatch => {
 	return {
 		onProductClicked: product => {
-			dispatch(editProduct(product))
+			dispatch(productEditing(product))
+		},
+		productLoading: ()=> {
+			dispatch(productLoading())
 		}
+	}
+}*/
+const mapStateToProps = state => {
+	return { ...state.productReducer
 	}
 }
 
-export default connect(null,mapDispatchToProps)(Index);
+export default connect(mapStateToProps)(Index);
 

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/restaurant-manage.iml" filepath="$PROJECT_DIR$/.idea/restaurant-manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/react-learning.iml" filepath="$PROJECT_DIR$/react-learning.iml" />
     </modules>
   </component>
 </project>
