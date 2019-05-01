@@ -10,7 +10,7 @@ function hasErrors(fieldsError) {
 class Index extends React.Component {
     componentDidMount() {
         // To disabled submit button at the beginning.
-        // this.props.form.validateFields();
+        this.props.form.validateFields();
     }
 
     handleSubmit = (e) => {

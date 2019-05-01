@@ -7,10 +7,9 @@ import {
 
 class Index extends React.Component {
 
-addForm=()=>{
+	addForm=(name)=>{
 
-
-	const BasicDemoForm1 = Form.create()(CategoryItem);
+		const BasicDemoForm1 = Form.create({name:name})(CategoryItem);
 
 	return <BasicDemoForm1/>;
 }
@@ -24,16 +23,16 @@ addForm=()=>{
 			<div>
 				<Row>
 					<Col span={24} >
-						{this.addForm()}
+						{this.addForm("test")}
 					</Col>
 					<Col span={24} >
-						{this.addForm()}					</Col>
+						{this.addForm("test1")}					</Col>
 					<Col span={24} >
-						{this.addForm()}					</Col>
+						{this.addForm("test2")}					</Col>
 					<Col span={24} >
-						{this.addForm()}					</Col>
+						{this.addForm("test3")}					</Col>
 					<Col span={24} >
-						{this.addForm()}					</Col>
+						{this.addForm("test4")}					</Col>
 
 				</Row>
 
