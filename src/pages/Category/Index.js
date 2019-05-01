@@ -21,17 +21,17 @@ class Index extends React.Component {
 		return (
 
 			<div>
-				<Row>
-					<Col span={24} >
+				<Row >
+					<Col span={24}  align={'middle'}>
 						{this.addForm("test")}
 					</Col>
-					<Col span={24} >
+					<Col span={24} align={'middle'} >
 						{this.addForm("test1")}					</Col>
-					<Col span={24} >
+					<Col span={24} align={'middle'} >
 						{this.addForm("test2")}					</Col>
-					<Col span={24} >
+					<Col span={24} align={'middle'} >
 						{this.addForm("test3")}					</Col>
-					<Col span={24} >
+					<Col span={24} align={'middle'} >
 						{this.addForm("test4")}					</Col>
 
 				</Row>

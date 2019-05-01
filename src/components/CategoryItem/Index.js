@@ -4,6 +4,7 @@ import {
 import React from "react";
 
 function hasErrors(fieldsError) {
+    console.log(fieldsError)
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
@@ -35,24 +36,26 @@ class Index extends React.Component {
                 <Form.Item
                     validateStatus={userNameError ? 'error' : ''}
                     help={userNameError || ''}
+                    label={'category name'}
                 >
-                    {getFieldDecorator('userName', {
-                        rules: [{required: true, message: 'Please input your username!'}],
+                    {getFieldDecorator('name', {
+                        rules: [{required: true, message: 'Please input category name!'}],
                         initialValue: '',
                     })(
-                        <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Username"/>
+                        <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="category name"/>
                     )}
                 </Form.Item>
                 <Form.Item
                     validateStatus={passwordError ? 'error' : ''}
                     help={passwordError || ''}
+                    label={'priority'}
                 >
-                    {getFieldDecorator('password', {
-                        rules: [{required: true, message: 'Please input your Password!'}],
-                        initialValue: ''
+                    {getFieldDecorator('priority', {
+                        rules: [{required: false}],
+                        initialValue: '0'
                     })(
-                        <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
-                               placeholder="Password"/>
+                        <Input  min={0} step={1} max={1000} type="number"
+                                placeholder="priority"/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -61,7 +64,7 @@ class Index extends React.Component {
                         htmlType="submit"
                         disabled={hasErrors(getFieldsError())}
                     >
-                        Log in
+                        submit
                     </Button>
                 </Form.Item>
             </Form>
