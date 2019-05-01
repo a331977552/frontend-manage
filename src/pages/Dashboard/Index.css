@@ -8,7 +8,10 @@
   transition: color .3s;
 
 }
-
+@keyframes anim_sideBarTrigger {
+  from {margin-left:200px;}
+  to {margin-left: 68px;}
+}
 .trigger:hover {
   color: #1890ff;
 }

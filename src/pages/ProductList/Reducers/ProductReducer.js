@@ -1,11 +1,11 @@
 import {PRODUCT_EDITING,PRODUCT_LOADING,PRODUCT_LOADING_FINISHED} from "../Actions/ProductActions";
 
 const initialState={
-	products:[],
 	loading:false,
 	loadingSuccess:false,
 	editingProduct:null,
-	categories:[],
+	categories:[
+	],
 	errorMessage:null,
 
 }
@@ -17,8 +17,7 @@ export default function productReducer(state=initialState, action){
 				return {...state,...action.payload};
 
 		case PRODUCT_LOADING:
-			var newState={...state,...action.payload};
-				return newState;
+			return {...state,...action.payload};
 
 		case PRODUCT_LOADING_FINISHED:
 				return {...state,...action.payload};

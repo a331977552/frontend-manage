@@ -1,7 +1,8 @@
-import {Layout, Icon, PageHeader} from 'antd';
+import {Layout,  PageHeader} from 'antd';
 import React from 'react';
 import NavLeft from '../../components/NavLeft/Index'
-import Misc from '../Misc/Index'
+import Category from '../Category/Index'
+import Advertise from '../Advertise/Index'
 import Orders from '../Orders/Index'
 import ProductAdding from '../ProductAdding/Index'
 import ProductEditing from '../ProductEditing/Index'
@@ -15,18 +16,23 @@ const {
 class Index extends React.Component {
   state = {
     collapsed: false,
-
-
+    sideBarMarginLeft: 200,
   }
 
-  ;toggle = () => {
+  toggle = () => {
+
+    let sideBarMarginLeft=200;
+    if(!this.state.collapsed){
+      sideBarMarginLeft=68;
+    }
     this.setState({
       collapsed: !this.state.collapsed,
+      sideBarMarginLeft:sideBarMarginLeft,
     });
+
   }
 
   render() {
-
     return (
         <Layout>
           <Sider
@@ -34,18 +40,20 @@ class Index extends React.Component {
               trigger={null}
               collapsible
               collapsed={this.state.collapsed}
-              style={{minHeight:'100vh'}}
+              style={{
+                overflow: 'auto', height: '100vh', position: 'fixed', left: 0
+              }}
              >
             <div className="logo" />
             <NavLeft/>
           </Sider>
-          <Layout >
+          <Layout  style={{ marginLeft: this.state.sideBarMarginLeft}}>
             <Header  style={{ background: '#fff', padding: 0 }} >
-              <Icon
+             {/* <Icon
                   className="trigger"
                   type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                   onClick={this.toggle}
-              />
+              />*/}
             </Header>
             <Content style={{ margin: '16px 16px 0', overflow: 'initial' }}>
               <div style={{ padding:16, background: '#fff' }}>
@@ -56,8 +64,11 @@ class Index extends React.Component {
                   <Route exact path={'/orders'} component={()=>{ return <PageHeader
                       title="订单管理"
                   />}}/>
-                  <Route exact path={'/misc'} component={()=>{ return <PageHeader
+                  <Route exact path={'/category'} component={()=>{ return <PageHeader
                       title="种类管理"
+                  />}}/>
+                  <Route exact path={'/advertise'} component={()=>{ return <PageHeader
+                      title="Advertise"
                   />}}/>
                   <Route exact path={'/product'} component={()=>{ return <PageHeader
                       title="添加菜品"
@@ -70,7 +81,8 @@ class Index extends React.Component {
                 <Switch>
                 <Route exact path={'/'} component={ProductList}/>
                 <Route exact path={'/orders'} component={Orders}/>
-                <Route exact path={'/misc'} component={Misc}/>
+                <Route exact path={'/category'} component={Category}/>
+                <Route exact path={'/advertise'} component={Advertise}/>
                 <Route exact path={'/product'} component={ProductAdding}/>
                 <Route exact path={'/product/edit'} component={ProductEditing}/>
                 <Redirect  to={'/notfound'}/>

@@ -28,10 +28,16 @@ class Index extends React.Component {
 					title:'订单管理'
 				},
 				{
-					key: '/misc',
-					name: '杂项',
+					key: '/category',
+					name: '种类',
 					icon: 'user',
-					title:'种类与广告'
+					title:'种类'
+				},
+				{
+					key: '/advertise',
+					name: '广告',
+					icon: 'user',
+					title:'广告'
 
 				}
 

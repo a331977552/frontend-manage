@@ -1,65 +1,89 @@
 import React from 'react';
 import './Index.css';
-import {Empty, Row} from "antd";
+import {Col, Divider, Empty, Icon, Row} from "antd";
 import ProductCard from '../../components/ProductCard/Index'
 import RetryButton from '../../components/RetryButton/Index'
 import Loading from '../../components/Loading/Index'
 import * as productActionCreators from "./Actions/ProductActions";
-import { bindActionCreators } from 'redux'
+import {bindActionCreators} from 'redux'
 
 import {connect} from "react-redux";
 
 class Index extends React.Component {
 
-	constructor(props){
-		super(props);
-		const {dispatch}=this.props;
-		this.boundActionCreators=bindActionCreators(productActionCreators,dispatch)
+    constructor(props) {
+        super(props);
+        const {dispatch} = this.props;
+        this.boundActionCreators = bindActionCreators(productActionCreators, dispatch)
 
-	}
+    }
 
-	onCardClicked=(product,index)=>{
+    onCardClicked = (product, index) => {
 
-		this.props.dispatch(productActionCreators.productEditing(product));
-		// this.props.onProductClicked(product);
-		this.props.history.push('/product/edit')
-	}
-	componentWillMount() {
+        this.props.dispatch(productActionCreators.productEditing(product));
+        // this.props.onProductClicked(product);
+        this.props.history.push('/product/edit')
+    }
 
-		if(!this.props.loadingSuccess&&!this.props.loading)
-			this.props.dispatch(productActionCreators.productLoading());
-	}
+    componentWillMount() {
 
-	onRetryClicked=(e)=>{
-		this.props.dispatch(productActionCreators.productLoading());
-	}
+        if (!this.props.loadingSuccess && !this.props.loading)
+            this.props.dispatch(productActionCreators.productLoading());
+    }
 
-	render() {
-		const {products,loading,loadingSuccess,errorMessage}=this.props;
-		return (
-			<div>
-				{loading?<Loading/>
-					:
-					(
-						loadingSuccess?
-							products.length===0?<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />:
-							<Row gutter={8} >
-							{
-							products.map((product,index)=>
-								(
-									<ProductCard  product={product} index={index} onCardClicked={this.onCardClicked}  key={product.id} />
-								))
-							}
-							</Row>:
-							(
-								<RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked} />
-							)
-					)
-				}
-			</div>
-		);
-	}
+    onRetryClicked = (e) => {
+        this.props.dispatch(productActionCreators.productLoading());
+    }
+    onCategoryClicked=(category)=>{
+    console.log(category)
+    }
+
+    render() {
+        const {categories, loading, loadingSuccess, errorMessage} = this.props;
+        return (
+            <div >
+                {loading ? <Loading/>
+                    :
+                    (
+                        loadingSuccess ?
+                            categories.length === 0 ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/> :
+
+                                (
+                                    categories.map((category, index) => (
+                                            <div  key={index} style={{marginRight:10}}>
+                                                <Row gutter={8} style={{marginBottom:5}}>
+                                                    <Col span={24}>
+                                                        <div  style={{backgroundColor:"#dedede",padding:10,fontWeight:"bold",fontSize:18}}>
+                                                            {category.name}
+                                                            <Icon style={{cursor:"pointer",marginLeft:20}} onClick={()=>{
+                                                                this.onCategoryClicked(category);
+                                                            }} type="setting" />
+                                                        </div>
+                                                    </Col>
+
+                                                </Row>
+                                                <Row gutter={8} >
+                                                    {category.products.map((product,index)=>
+                                                    (
+                                                        <ProductCard  product={product} index={index} onCardClicked={this.onCardClicked}  key={product.id} />
+                                                    ))
+                                                    }
+                                                </Row>
+                                                <Divider style={{marginBottom:20}}/>
+                                            </div>
+                                                )))
+
+                               :
+                            (
+                                <RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked}/>
+                            )
+                    )
+                }
+            </div>
+        );
+    }
 }
+
 /*const mapDispatchToProps = dispatch => {
 	return {
 		onProductClicked: product => {
@@ -71,8 +95,9 @@ class Index extends React.Component {
 	}
 }*/
 const mapStateToProps = state => {
-	return { ...state.productReducer
-	}
+    return {
+        ...state.productReducer
+    }
 }
 
 export default connect(mapStateToProps)(Index);

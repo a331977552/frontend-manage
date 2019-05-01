@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import myData from './FakeData.json';
 export const PRODUCT_EDITING='PRODUCT_EDITING'
 export const PRODUCT_LOADING='PRODUCT_LOADING'
 export const PRODUCT_LOADING_FINISHED='PRODUCT_LOADING_FINISHED'
@@ -24,44 +24,25 @@ export function productLoading(loading){
 				}
 			});
 
-			axios.get('/typicode/demo/db3')
+			axios.get('/typicode/demo/db')
 			.then(function (response) {
 				console.log("success: "+response.data);
+				dispatch(productLoadingFinished(myData.categories,true,null));
 			},function (error) {
-				console.log("rejected:"+error);
+				dispatch(productLoadingFinished(null,false,error));
 			}).catch(function (error) {
-				console.log("exception:"+error)
+				dispatch(productLoadingFinished(null,false,error));
 			});
-
-			setTimeout(function () {
-				var  dd=Math.random()<0.8;
-				if(dd){
-					//todo loading product from network
-					dispatch(productLoadingFinished([{id:1,name:'hahah2',price:11},
-						{id:2,name:'hahah2',price:10},
-						{id:3,name:'hahah3',price:10},
-						{id:4,name:'hahah4',price:10},
-						{id:5,name:'hahah5',price:10},
-					],true,null));
-
-				}else{
-					//todo loading failed
-					dispatch(productLoadingFinished(null,false,'Timeout Exception'));
-				}
-
-			},1500)
-
-
 		}
 
 }
 
-export function productLoadingFinished(products,loadingSuccess,errorMessage){
+export function productLoadingFinished(categories,loadingSuccess,errorMessage){
 
 	return {
 		type: PRODUCT_LOADING_FINISHED,
 		payload:{
-			products:products,
+			categories:categories,
 			loadingSuccess:loadingSuccess,
 			loading:false,
 			errorMessage:errorMessage

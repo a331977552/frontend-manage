@@ -1,2 +1,37 @@
 @import '~antd/dist/antd.css';
 
+
+@media only screen and  (max-width: 576px){
+    .product_card_img{
+        min-height: 30vw;
+    }
+
+
+}
+@media only screen and  (max-width: 768px){
+    .product_card_img{
+        min-height: 25vw;
+    }
+
+
+}
+@media only screen and  (max-width: 992px){
+    .product_card_img{
+        min-height: 20vw;
+    }
+
+
+}
+@media only screen and  (max-width: 1200px){
+    .product_card_img{
+        min-height: 15vw;
+    }
+
+
+}
+@media only screen and  (max-width: 1600px){
+    .product_card_img{
+        min-height: 10vw;
+    }
+
+}
