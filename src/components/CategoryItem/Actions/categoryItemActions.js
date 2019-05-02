@@ -6,7 +6,7 @@ export  const  DELETING_CATEGORY_FINISHED="DELETING_CATEGORY";
 
 
 export function deletingCategory(category){
-	console.log("deletingCategory")
+
 
 	return function(dispatch,getState){
 			dispatch({

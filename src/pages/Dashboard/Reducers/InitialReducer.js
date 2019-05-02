@@ -21,20 +21,24 @@ export default function initialReducer(state=initialState, action){
 
 
 		case DELETING_CATEGORY_SUCCESS:
-				const categories=state.categories.filter((cate,index)=>{
 
-					return action.payload.deletedCategory.id!==cate.id;
-				});
+				const categories=filterDeletedCategory(state.categories,action.payload.deletedCategory);
 
-
-				return {...state,
-					categories:categories
-				};
+				return {...state,categories:categories};
 
 				default:
 			return state;
 	}
 
+
+}
+
+function filterDeletedCategory(categories,deletedCategory){
+
+
+	return categories.filter((cate,index)=>{
+		return deletedCategory.id!==cate.id;
+	});
 
 }
 

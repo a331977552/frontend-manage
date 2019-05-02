@@ -5,6 +5,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as categoryItemActions from './Actions/categoryItemActions'
+import {DELETING_CATEGORY_FINISHED} from "./Actions/categoryItemActions";
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
@@ -34,7 +35,13 @@ class Index extends React.Component {
         });
     }
     onDeleteClicked = (e) => {
-        this.props.dispatch(categoryItemActions.deletingCategory(this.props.category));
+
+        if(this.props.category.product.length>0){
+            //TODO adding a notification
+
+        }else{
+            this.props.dispatch(categoryItemActions.deletingCategory(this.props.category));
+        }
     }
 
     render() {
