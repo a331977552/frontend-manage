@@ -9,6 +9,11 @@ import ProductEditing from '../ProductEditing/Index'
 import ProductList from '../ProductList/Index'
 import './Index.css';
 import {Route,Switch,Redirect} from 'react-router-dom'
+import {connect} from "react-redux";
+import * as InitialActions from "./Actions/InitialActions";
+import {bindActionCreators} from "redux";
+import Loading from "../../components/Loading/Index";
+import RetryButton from "../../components/RetryButton/Index";
 
 const {
   Header, Content, Footer, Sider,
@@ -19,6 +24,12 @@ class Index extends React.Component {
     sideBarMarginLeft: 200,
   }
 
+  constructor(props){
+    super(props)
+    const {dispatch} = this.props;
+    bindActionCreators(InitialActions, dispatch)
+
+  }
   toggle = () => {
 
     let sideBarMarginLeft=200;
@@ -32,74 +43,95 @@ class Index extends React.Component {
 
   }
 
+
+  componentDidMount() {
+    if (!this.props.loadingSuccess && !this.props.loading)
+      this.props.dispatch(InitialActions.initialLoading());
+  }
+  onRetryClicked = (e) => {
+    this.props.dispatch(InitialActions.initialLoading());
+  }
+
   render() {
+    const {loading, loadingSuccess, errorMessage} = this.props;
     return (
-        <Layout>
-          <Sider
-              width={200}
-              trigger={null}
-              collapsible
-              collapsed={this.state.collapsed}
-              style={{
-                overflow: 'auto', height: '100vh', position: 'fixed', left: 0
-              }}
-             >
-            <div className="logo" />
-            <NavLeft/>
-          </Sider>
-          <Layout  style={{ marginLeft: this.state.sideBarMarginLeft}}>
-            <Header  style={{ background: '#fff', padding: 0 }} >
-             {/* <Icon
+        <div>
+          {loading ? <Loading/>:loadingSuccess ?(
+                <Layout>
+                  <Sider
+                      width={200}
+                      trigger={null}
+                      collapsible
+                      collapsed={this.state.collapsed}
+                      style={{
+                        overflow: 'auto', height: '100vh', position: 'fixed', left: 0
+                      }}
+                  >
+                    <div className="logo" />
+                    <NavLeft/>
+                  </Sider>
+                  <Layout  style={{ marginLeft: this.state.sideBarMarginLeft}}>
+                    <Header  style={{ background: '#fff', padding: 0 }} >
+                      {/* <Icon
                   className="trigger"
                   type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                   onClick={this.toggle}
               />*/}
-            </Header>
-            <Content style={{ margin: '16px 16px 0', overflow: 'initial' }}>
-              <div style={{ padding:16, background: '#fff' }}>
-                <Switch>
-                  <Route exact path={'/'} component={()=>{ return <PageHeader
-                      title="商品列表"
-                  />}}/>
-                  <Route exact path={'/orders'} component={()=>{ return <PageHeader
-                      title="订单管理"
-                  />}}/>
-                  <Route exact path={'/category'} component={()=>{ return <PageHeader
-                      title="种类管理"
-                  />}}/>
-                  <Route exact path={'/advertise'} component={()=>{ return <PageHeader
-                      title="Advertise"
-                  />}}/>
-                  <Route exact path={'/product'} component={()=>{ return <PageHeader
-                      title="添加菜品"
-                  />}}/>
-                  <Route exact path={'/product/edit'} component={()=>{ return <PageHeader
-                      title="商品修改"
-                  />}}/>
-                </Switch>
+                    </Header>
+                    <Content style={{ margin: '16px 16px 0', overflow: 'initial' }}>
+                      <div style={{ padding:16, background: '#fff',minHeight:'82vh' }}>
+                        <Switch>
+                          <Route exact path={'/'} component={()=>{ return <PageHeader
+                              title="商品列表"
+                          />}}/>
+                          <Route exact path={'/orders'} component={()=>{ return <PageHeader
+                              title="订单管理"
+                          />}}/>
+                          <Route exact path={'/category'} component={()=>{ return <PageHeader
+                              title="种类管理"
+                          />}}/>
+                          <Route exact path={'/advertise'} component={()=>{ return <PageHeader
+                              title="Advertise"
+                          />}}/>
+                          <Route exact path={'/product'} component={()=>{ return <PageHeader
+                              title="添加菜品"
+                          />}}/>
+                          <Route exact path={'/product/edit'} component={()=>{ return <PageHeader
+                              title="商品修改"
+                          />}}/>
+                        </Switch>
 
-                <Switch>
-                <Route exact path={'/'} component={ProductList}/>
-                <Route exact path={'/orders'} component={Orders}/>
-                <Route exact path={'/category'} component={Category}/>
-                <Route exact path={'/advertise'} component={Advertise}/>
-                <Route exact path={'/product'} component={ProductAdding}/>
-                <Route exact path={'/product/edit'} component={ProductEditing}/>
-                <Redirect  to={'/notfound'}/>
+                        <Switch>
+                          <Route exact path={'/'} component={ProductList}/>
+                          <Route exact path={'/orders'} component={Orders}/>
+                          <Route exact path={'/category'} component={Category}/>
+                          <Route exact path={'/advertise'} component={Advertise}/>
+                          <Route exact path={'/product'} component={ProductAdding}/>
+                          <Route exact path={'/product/edit'} component={ProductEditing}/>
+                          <Redirect  to={'/notfound'}/>
 
 
-                </Switch>
-              </div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              Ant Design ©2018 Created by Ant UED
-            </Footer>
-          </Layout>
-        </Layout>
+                        </Switch>
+                      </div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>
+                      Ant Design ©2018 Created by Ant UED
+                    </Footer>
+                  </Layout>
+                </Layout>): (<RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked}/> )
+          }
+
+        </div>
+
     );
   }
 }
 
 
-export default  Index;
+const mapStateToProps = state => {
+  return {
+    ...state.initialReducer
+  }
+}
+export default  connect(mapStateToProps)(Index);
 

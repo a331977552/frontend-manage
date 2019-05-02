@@ -4,43 +4,48 @@ import CategoryItem from '../../components/CategoryItem/Index'
 import {
 	Row, Col, Form,
 } from 'antd';
+import {connect} from "react-redux";
 
 class Index extends React.Component {
 
-	addForm=(name)=>{
+	addForm=(name,category)=>{
 
-		const BasicDemoForm1 = Form.create({name:name})(CategoryItem);
+		const CategoryForm = Form.create({name:name})(CategoryItem);
 
-	return <BasicDemoForm1/>;
+	return <CategoryForm category={category}/>;
 }
 
 
-	render() {
+componentDidMount() {
+}
 
+	render() {
 
 		return (
 
 			<div>
-				<Row >
-					<Col span={24}  align={'middle'}>
-						{this.addForm("test")}
-					</Col>
-					<Col span={24} align={'middle'} >
-						{this.addForm("test1")}					</Col>
-					<Col span={24} align={'middle'} >
-						{this.addForm("test2")}					</Col>
-					<Col span={24} align={'middle'} >
-						{this.addForm("test3")}					</Col>
-					<Col span={24} align={'middle'} >
-						{this.addForm("test4")}					</Col>
+				{
+					this.props.categories.map((cate,index)=>
 
-				</Row>
+						<Row key={index}>
+							<Col span={24}  align={'middle'}>
+								{this.addForm(cate.name,cate)}
+							</Col>
+						</Row>
+				)
+				}
+
 
 			</div>
 		);
 }
 }
 
+const mapStateToProps = state => {
+	return {
+		...state.initialReducer
+	}
+}
 
-export default  Form.create({ name: "haha" })(Index);
+export default  connect(mapStateToProps)(Form.create({ name: "haha" })(Index));
 

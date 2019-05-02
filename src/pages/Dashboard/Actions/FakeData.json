@@ -3,6 +3,7 @@
     {
       "id": 1,
       "name": "hotpot",
+      "priority": 999,
       "products": [
         {
           "id": 1,
@@ -95,6 +96,7 @@
     {
       "id": 2,
       "name": "rice",
+      "priority": 2,
       "products": [
         {
           "id": 11,
@@ -189,6 +191,7 @@
     {
       "id": 3,
       "name": "chaofan",
+      "priority": 1,
       "products": [
         {
           "id": 311,
@@ -291,6 +294,7 @@
     {
       "id": 4,
       "name": "desserts",
+      "priority": 5,
       "products": [
         {
           "id": 411,
@@ -305,6 +309,7 @@
     {
       "id": 5,
       "name": "drinks",
+      "priority": 1,
       "products": [
         {
           "id": 511,

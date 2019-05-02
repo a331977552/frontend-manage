@@ -1,7 +1,7 @@
 import {Menu, Icon} from 'antd';
 import React from 'react';
 import './Index.css';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 class Index extends React.Component {
 
@@ -48,10 +48,10 @@ class Index extends React.Component {
 
 
 	render() {
-
+		const {pathname} = this.props.location;
 		return (
 			<div>
-				<Menu theme="dark" mode="inline" defaultSelectedKeys={[this.state.menu.defaultSelectedKeys]}>
+				<Menu theme="dark" mode="inline" defaultSelectedKeys={[pathname]}>
 					{
 						this.state.menu.menuItems.map((item, index) => {
 
@@ -71,5 +71,5 @@ class Index extends React.Component {
 }
 
 
-export default Index;
+export default  withRouter(Index);
 

@@ -4,17 +4,17 @@ import {Col, Divider, Empty, Icon, Row} from "antd";
 import ProductCard from '../../components/ProductCard/Index'
 import RetryButton from '../../components/RetryButton/Index'
 import Loading from '../../components/Loading/Index'
-import * as productActionCreators from "./Actions/ProductActions";
 import {bindActionCreators} from 'redux'
 
 import {connect} from "react-redux";
+import * as productActionCreators from "./Actions/ProductActions";
 
 class Index extends React.Component {
 
     constructor(props) {
         super(props);
         const {dispatch} = this.props;
-        this.boundActionCreators = bindActionCreators(productActionCreators, dispatch)
+      bindActionCreators(productActionCreators, dispatch)
 
     }
 
@@ -27,12 +27,9 @@ class Index extends React.Component {
 
     componentWillMount() {
 
-        if (!this.props.loadingSuccess && !this.props.loading)
-            this.props.dispatch(productActionCreators.productLoading());
     }
 
     onRetryClicked = (e) => {
-        this.props.dispatch(productActionCreators.productLoading());
     }
     onCategoryClicked=(category)=>{
     console.log(category)
@@ -96,7 +93,8 @@ class Index extends React.Component {
 }*/
 const mapStateToProps = state => {
     return {
-        ...state.productReducer
+        ...state.productReducer,
+        ...state.initialReducer
     }
 }
 
