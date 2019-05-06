@@ -6,7 +6,7 @@ import {
 	Upload, Modal, Radio, Select, message
 } from 'antd';
 import {connect} from "react-redux";
-import {addProduct} from "../../Api/ProductApi";
+import {addProduct,updateProduct} from "../../../Api/ProductApi";
 
 const formItemLayout = {
 	labelCol: {
@@ -15,7 +15,7 @@ const formItemLayout = {
 	},
 	wrapperCol: {
 		xs: {span: 24},
-		sm: {span: 12},
+		sm: {span: 19},
 	},
 };
 const tailFormItemLayout = {
@@ -40,19 +40,31 @@ const uploadButton = (
 class Index extends React.Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			previewVisible: false,
 			previewImage: "",
-			fileList: [],
-			categories: [
-				{
-					id: 1,
-					name: '米饭',
-					title: '新品上架'
-				}
-			]
+			fileList: [
 
+			],
 		}
+		if(this.props.updatingProduct===null){
+			message.error("当前没有可编辑的商品,请重新选择");
+			this.props.history.push('/')
+			return ;
+		}
+		this.state = {
+			fileList: [
+				{
+					uid:"-1",
+					url:"http://localhost/api/img"+this.props.updatingProduct.img,
+				}
+			],
+			defaultImg:this.props.updatingProduct.img
+		}
+
+
+
 	}
 
 
@@ -66,23 +78,28 @@ class Index extends React.Component {
 	}
 
 
+
+
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				if (this.state.fileList.length === 0) {
-					message.warning('您还没有上传产品图片!');
-					return;
+				let url=this.state.defaultImg;
+				if(this.state.fileList.length !== 0 && this.state.fileList[0].response!==undefined){
+					url=this.state.fileList[0].response.url
 				}
-				addProduct({...values,img:this.state.fileList[0].response.url},this.props.dispatch,(response)=>{
-					this.props.form.resetFields();
+				updateProduct({...values,img:url,id:this.props.updatingProduct.id},this.props.dispatch,(response)=>{
+
 				});
+
 			}
 		});
 	}
 	handleChange = ({fileList}) => this.setState({fileList})
 
 	render() {
+		if(this.props.updatingProduct===null)
+			return <div>error during editing product</div>;
 		const {getFieldDecorator} = this.props.form;
 		const {fileList, previewVisible, previewImage} = this.state;
 		const {categories} = this.props;
@@ -90,7 +107,7 @@ class Index extends React.Component {
 		if (categories === undefined || categories.length === 0) {
 			return this.NoCategoryContent();
 		}
-		const defaultCategoryId = categories[0].id;
+		const {updatingProduct}	=this.props;
 
 		return (
 			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
@@ -100,6 +117,7 @@ class Index extends React.Component {
 				>
 					{getFieldDecorator('name', {
 						rules: [{required: true, message: '请输入商品名称!'}],
+						initialValue:updatingProduct.name
 					})(
 						<Input placeholder="菜品名称"/>
 					)}
@@ -111,7 +129,7 @@ class Index extends React.Component {
 				>
 					{getFieldDecorator('price', {
 						rules: [{required: true, message: '请输入价格!'}],
-						initialValue: '0.0'
+						initialValue: updatingProduct.price
 					})(
 						<Input min={0} step={0.1} max={10000} type="number"
 						       placeholder="价格"/>
@@ -123,16 +141,12 @@ class Index extends React.Component {
 				>
 					{getFieldDecorator('categoryId', {
 						rules: [{required: true, message: '请选择一项种类!'}],
-						initialValue: defaultCategoryId
+						initialValue: updatingProduct.categoryId
 					})(
 						<Select
 							showSearch
 							placeholder="请选择一项种类"
 							optionFilterProp="children"
-							/*	onChange={onChange}
-								onFocus={onFocus}
-								onBlur={onBlur}
-								onSearch={onSearch}*/
 							filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
 						>
 							{this.props.categories.map((category, index) => (
@@ -147,7 +161,7 @@ class Index extends React.Component {
 				>
 					{getFieldDecorator('description', {
 						rules: [{required: false}],
-						initialValue: "",
+						initialValue: updatingProduct.description,
 					})(
 						<Input placeholder="产品描述" maxLength={512}/>
 					)}
@@ -158,7 +172,7 @@ class Index extends React.Component {
 				>
 					{getFieldDecorator('salesVolume', {
 						rules: [{required: false}],
-						initialValue: 0
+						initialValue:  updatingProduct.salesVolume
 					})(
 						<Input min={0} step={1} max={10000000} type="number"
 						       placeholder="价格"/>
@@ -171,7 +185,7 @@ class Index extends React.Component {
 				>
 					{getFieldDecorator('status', {
 						rules: [{required: true, message: '请选择一种状态!'}],
-						initialValue: "ON_SALE"
+						initialValue: updatingProduct.status
 					})(
 						<Radio.Group buttonStyle="solid">
 							<Radio.Button value="ON_SALE">上架</Radio.Button>
@@ -192,6 +206,7 @@ class Index extends React.Component {
 							name={'img'}
 							onPreview={this.handlePreview}
 							onChange={this.handleChange}
+							onRemove={this.handleRemove}
 						>
 							{fileList.length >= 1 ? null : uploadButton}
 						</Upload>
@@ -217,6 +232,6 @@ class Index extends React.Component {
 
 
 export default connect((state) => {
-	return {...state.initialReducer}
-})(Form.create({name: 'product_adding'})(Index));
+	return {...state.initReducer}
+})(Form.create({name: 'product_editing'})(Index));
 

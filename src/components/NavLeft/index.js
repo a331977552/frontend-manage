@@ -1,6 +1,6 @@
 import {Menu, Icon} from 'antd';
 import React from 'react';
-import './Index.css';
+import './index.css';
 import {Link, withRouter} from "react-router-dom";
 
 class Index extends React.Component {

@@ -3,9 +3,9 @@ import {
 } from 'antd';
 import React from "react";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import * as categoryItemActions from './Actions/categoryItemActions'
-import {deleteCategoryById, editCategory} from "../../Api/CategoryApi";
+
+
+import {deleteCategoryById, editCategory} from "../../../Api/CategoryApi";
 
 function hasErrors(fieldsError) {
 	return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -16,9 +16,13 @@ const Title = (props) => (<span>您确定要删除种类 <span style={{color: 'r
 
 class Index extends React.Component {
 
+	state={
+		deletingSuccess:false,
+		deleting:false,
+		errorMessage:null,
+	}
 	constructor(props) {
 		super(props)
-		bindActionCreators(categoryItemActions, this.props.dispatch);
 	}
 
 
@@ -127,4 +131,4 @@ class Index extends React.Component {
 }
 
 
-export default connect((state) => ({...state.categoryItemReducer}))(Index);
+export default Index;

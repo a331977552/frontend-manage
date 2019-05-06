@@ -5,17 +5,21 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import {BrowserRouter as Router} from "react-router-dom";
-import productReducer from './pages/ProductList/Reducers/ProductReducer'
+import productReducer from './pages/ProductList/store/productReducer'
 import initialReducer from './pages/Dashboard/Reducers/InitialReducer'
 import categoryItemReducer from "./components/CategoryItem/Reducers/categoryItemReducer";
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
+import categoryReducer from "./pages/Category/store/categoryReducer";
+import initReducer from "./store/initReducer";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const MainReducer = combineReducers({
     productReducer,
     initialReducer,
-    categoryItemReducer
+    categoryItemReducer,
+    categoryReducer,
+    initReducer
 })
 
 

@@ -2,7 +2,7 @@
   "categories": [
     {
       "id": 1,
-      "name": "hotpot",
+      "title": "hotpot",
       "priority": 999,
       "products": [
         {
@@ -95,7 +95,7 @@
     },
     {
       "id": 2,
-      "name": "rice",
+      "title": "rice",
       "priority": 2,
       "products": [
         {
@@ -190,7 +190,7 @@
     },
     {
       "id": 3,
-      "name": "chaofan",
+      "title": "chaofan",
       "priority": 1,
       "products": [
         {
@@ -293,7 +293,7 @@
     },
     {
       "id": 4,
-      "name": "desserts",
+      "title": "desserts",
       "priority": 5,
       "products": [
         {
@@ -308,7 +308,7 @@
     },
     {
       "id": 5,
-      "name": "drinks",
+      "title": "drinks",
       "priority": 1,
       "products": [
         {

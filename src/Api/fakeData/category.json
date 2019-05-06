@@ -1,0 +1,79 @@
+[
+  {
+    "id": 67,
+    "title": "嘻嘻嘻",
+    "description": null,
+    "priority": 0,
+    "products": []
+  },
+  {
+    "id": 23,
+    "title": "冰激凌",
+    "description": null,
+    "priority": 0,
+    "products": []
+  },
+  {
+    "id": 24,
+    "title": "啤酒",
+    "description": null,
+    "priority": 55,
+    "products": []
+  },
+  {
+    "id": 25,
+    "title": "盖饭",
+    "description": null,
+    "priority": 12,
+    "products": []
+  },
+  {
+    "id": 58,
+    "title": "汉堡系列",
+    "description": null,
+    "priority": 0,
+    "products": []
+  },
+  {
+    "id": 59,
+    "title": "纯净水",
+    "description": null,
+    "priority": 0,
+    "products": []
+  },
+  {
+    "id": 60,
+    "title": "咖啡",
+    "description": null,
+    "priority": 0,
+    "products": []
+  },
+  {
+    "id": 27,
+    "title": "汤",
+    "description": null,
+    "priority": 888,
+    "products": []
+  },
+  {
+    "id": 22,
+    "title": "炒菜系列",
+    "description": null,
+    "priority": 889,
+    "products": []
+  },
+  {
+    "id": 62,
+    "title": "饮料",
+    "description": null,
+    "priority": 999,
+    "products": []
+  },
+  {
+    "id": 61,
+    "title": "绿茶",
+    "description": null,
+    "priority": 999,
+    "products": []
+  }
+]

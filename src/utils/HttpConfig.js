@@ -12,10 +12,9 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 
+axios.defaults.baseURL  = "http://localhost/api"
 axios.interceptors.response.use(function (response) {
     if(response.status>=200&&response.status<300){
-        // console.log(response.data);
-        //
         return response;
     }else{
         switch (response.status) {
@@ -23,20 +22,15 @@ axios.interceptors.response.use(function (response) {
                 return Promise.reject({message:'server error: '+500,response:response});
             case NOT_FOUND:
                 return Promise.reject({message:'resource not found: '+404,response:response});
-
-
             case FORBIDDEN:
                 return Promise.reject({message:'access forbidden: '+403,response:response});
-
             case REDIRECT:
                 return Promise.reject({message:'redirected: '+403,response:response});
             default:
-
                return  Promise.reject({message:'unrecognized error',response:response});
         }
     }
 }, function (error) {
-        console.log(error)
     return Promise.reject(error);
 });
 // axios.defaults.baseURL = 'https://api.example.com';
