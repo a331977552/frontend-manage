@@ -1,14 +1,12 @@
 import React from 'react';
-import './Index.css';
-import CategoryItem from '../../components/CategoryItem/Index'
+import './index.css';
+import CategoryItem from './CategoryItem'
 import {Row, Col, Form, Button, Modal, Input, Empty} from 'antd';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as categoryActions from './store/actionCreator'
-import sortCategoryByPriority, {addCategory, getAllCategories} from "../../Api/CategoryApi";
-import Loading from "../../components/Loading";
-import RetryButton from "../../components/RetryButton";
-import {loadingCategorySuccess} from "./store/actionCreator";
+import  {addCategory, getAllCategories} from "../../Api/CategoryApi";
+
 
 class Index extends React.Component {
 
@@ -36,15 +34,12 @@ class Index extends React.Component {
 
 
 	onHandleOk = (e) => {
+		const {dispatch}= this.props;
+
 		this.props.form.validateFields((err, values) => {
 				if (!err) {
 					this.setState({visible: false});
-					addCategory({...values,priority:parseInt(values.priority)},(response)=>{
-						this.state.categories.push(response.data);
-						const  categories=sortCategoryByPriority(this.state.categories)
-						this.setState({
-							categories:categories
-						})
+					addCategory({...values,priority:parseInt(values.priority)},dispatch,(response)=>{
 						this.props.form.resetFields();
 					});
 				}

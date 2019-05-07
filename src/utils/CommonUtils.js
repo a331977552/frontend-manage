@@ -18,7 +18,21 @@ export function updateCategory(editedCategory, categories) {
 		}
 	}
 }
+export function filterDeletedCategory(categories, deletedCategory) {
 
+
+	return categories.filter((cate, index) => {
+		return deletedCategory.id !== cate.id;
+	});
+
+}
+
+export default function sortCategoryByPriority(categories) {
+
+	return [...categories].sort((A, B) => {
+		return B.priority - A.priority;
+	})
+}
 export function updateProduct(editedProduct, categories) {
 
 	for (let index in categories) {

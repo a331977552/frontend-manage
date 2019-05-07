@@ -1,7 +1,8 @@
 import React from 'react';
-import './Index.css';
-import {Col, Divider, Empty, Icon, Pagination, Row, message, Modal} from "antd";
-import ProductCard from './ProductCard/Index'
+import './index.css';
+import {Col, Divider, Empty, Icon, Pagination, Row, message, Modal, AutoComplete, Button, Input} from "antd";
+import ProductCard from './ProductCard'
+import ProductSearch from './ProductSearch'
 import ProductUpdate from './ProductUpdate/Index'
 
 import RetryButton from '../../components/RetryButton'
@@ -116,6 +117,14 @@ state={
                         loadingSuccess ?
                             empty? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/> :
                                 (<div>
+                                        <Row gutter={8}  style={{marginBottom:20}} >
+                                            <Col align={"middle"}>
+                                            <ProductSearch />
+
+                                            </Col>
+
+
+                                        </Row>
                                                 <Row gutter={8} >
                                                     {content.map((product,index)=>
                                                     (

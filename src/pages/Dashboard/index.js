@@ -1,12 +1,12 @@
 import {Layout, PageHeader} from 'antd';
 import React from 'react';
 import NavLeft from '../../components/NavLeft'
-import Category from '../Category/Index'
-import Advertise from '../Advertise/Index'
-import Orders from '../Orders/Index'
-import ProductAdding from '../ProductAdding/Index'
-import ProductList from '../ProductList/Index'
-import './Index.css';
+import Category from '../Category'
+import Advertise from '../Advertise'
+import Orders from '../Orders'
+import ProductAdding from '../ProductAdding'
+import ProductList from '../ProductList'
+import './index.css';
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from "react-redux";
 import * as InitialActions from "./Actions/InitialActions";

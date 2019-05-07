@@ -1,5 +1,5 @@
 import React from 'react';
-import './Index.css';
+import './index.css';
 import {Link} from "react-router-dom";
 import {
 	Form, Icon, Input, Button,
@@ -217,6 +217,6 @@ class Index extends React.Component {
 
 
 export default connect((state) => {
-	return {...state.initialReducer}
+	return {...state.initReducer}
 })(Form.create({name: 'product_adding'})(Index));
 

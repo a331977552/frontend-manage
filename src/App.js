@@ -1,5 +1,5 @@
 import React from 'react';
-import Dashboard from './pages/Dashboard/Index'
+import Dashboard from './pages/Dashboard'
 import NotFound from './pages/NotFound/Index'
 import './App.css';
 import {Route,Switch} from 'react-router-dom'
@@ -42,6 +42,7 @@ class App extends React.Component {
     }
     init(){
         getAllCategories((categories)=>{
+
             this.setState({
                 loading:false,
                 loadingSuccess:true
@@ -58,7 +59,6 @@ class App extends React.Component {
 
 
     render() {
-
       const {loading, loadingSuccess, errorMessage} = this.state;
       return (
           <div>

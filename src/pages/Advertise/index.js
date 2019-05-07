@@ -1,5 +1,5 @@
 import React from 'react';
-import './Index.css';
+import './index.css';
 import {
 	Form, DatePicker, TimePicker, Button,
 } from 'antd';

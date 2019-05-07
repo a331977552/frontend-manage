@@ -1,5 +1,8 @@
 
 import {post} from './ApiGateway'
+import products from './fakeData/products'
+import productNames from './fakeData/productNames'
+
 import {
 	addingProductSuccess,
 	deleteProductSuccess,
@@ -33,7 +36,24 @@ export function deleteProduct(product,dispatch,successCallback=()=>{}) {
 	);
 }
 export function getProductsByPage(page,successCallback=(response)=>{},error=(error)=>{}) {
-	post(prefix+'findAll/'+page,{},{showNotification:false,successMessage:"获取失败",failedMessage:"获取成功"},successCallback,error,
+	post(prefix+'findAll/'+page,{},{showNotification:false,successMessage:"获取失败",failedMessage:"获取成功"},successCallback,
+
+		(errormsg)=>{
+
+		successCallback({data:products})
+		},
 
 	);
 }
+
+export function getProductAllNames(successCallback=(response)=>{},error=(error)=>{}) {
+	post(prefix+'findAllNames/',{},{showNotification:false,successMessage:"获取失败",failedMessage:"获取成功"},successCallback,
+
+
+		(errormsg)=>{
+			successCallback({data:productNames})
+		},
+
+	);
+}
+

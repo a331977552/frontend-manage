@@ -1,1 +1,5 @@
-export const INITIALIZED_SUCCESSFULLY="INITIALIZED_SUCCESSFULLY"
+export const INITIALIZED_SUCCESSFULLY="initialized_successfully"
+export const DELETE_CATEGORY_SUCCESSFULLY="delete_category_successfully"
+
+export const EDIT_CATEGORY_SUCCESSFULLY="edit_category_successfully"
+export const ADD_CATEGORY_SUCCESSFULLY="add_category_successfully"

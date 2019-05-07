@@ -1,18 +1,3 @@
-import {
-	INITIALIZED_LOADING,
-	INITIALIZED_LOADING_FINISHED,
-	EDITING_CATEGORY_SUCCESS,
-	DELETING_CATEGORY_SUCCESS,
-	ADDING_CATEGORY_SUCCESS,
-	ADDING_PRODUCT_SUCCESS, EDITING_PRODUCT_SUCCESS, DELETING_PRODUCT_SUCCESS
-} from "../Actions/InitialActions";
-import  {
-	updateCategory,
-	addProduct,
-	updateProduct,
-	filterDeletedProduct,
-	sortAllProductByStatus
-} from "../../../utils/CommonUtils";
 
 const initialState = {
 	loading: false,
@@ -59,13 +44,3 @@ export default function initialReducer(state = initialState, action) {
 
 	return state;
 }
-
-function filterDeletedCategory(categories, deletedCategory) {
-
-
-	return categories.filter((cate, index) => {
-		return deletedCategory.id !== cate.id;
-	});
-
-}
-
