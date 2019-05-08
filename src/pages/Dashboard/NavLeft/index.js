@@ -46,6 +46,9 @@ class Index extends React.Component {
 		},
 	}
 	render() {
+		//prevent update unmounted component
+		if(window.innerWidth<768)
+			return <div>prevent update unmounted component</div>
 		const {pathname} = this.props.location;
 		return (
 			<div>

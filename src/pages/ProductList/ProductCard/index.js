@@ -1,7 +1,7 @@
 import {Icon, Col, Card} from 'antd/lib/index';
 import React from 'react';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
-
+import imgPlaceHolder from '../../../resources/imgs/default-placeholder-200x200.png'
 import './index.css';
 
 class Index extends React.Component {
@@ -32,10 +32,8 @@ class Index extends React.Component {
                 <Card loading={false}
                       hoverable={true}
                       style={{width: '100%', margin: 0, padding: 0, ...backgroundColor}}
-                      cover={<LazyLoadImage alt="loading..." wrapperClassName={'product_card_img'}
-                                            src={product.img.startsWith("http") ? product.img : "http://localhost/api/img" + product.img}/>}
+                      cover={<LazyLoadImage alt="loading..." wrapperClassName={'product_card_img'}   src={product.img.startsWith("http") ? product.img : "http://localhost/api/img" + product.img}/>}
                 >
-
                     <div style={{
                         width: '100%', clear: 'both',
                         display: ' inline-block',

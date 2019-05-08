@@ -1,4 +1,4 @@
-import {Icon, Layout, PageHeader} from 'antd';
+import {Avatar, BackTop, Icon, Layout, PageHeader} from 'antd';
 import React from 'react';
 import NavLeft from './NavLeft'
 import NavDrawer from './NavDrawer'
@@ -25,9 +25,10 @@ class Index extends React.Component {
         collapsed: false,
         loading: false, loadingSuccess: true,
         errorMessage: null,
-        hideNav: false,
+        hideNav: window.innerWidth <= 768,
         showDrawer:false,
-        sideBarMarginLeft:200
+        sideBarMarginLeft:window.innerWidth <= 768?0:200
+
     }
 
     constructor(props) {
@@ -46,11 +47,13 @@ class Index extends React.Component {
 
 
     componentDidMount() {
-        this.resize();
-        window.addEventListener("resize", this.resize.bind(this));
+        window.addEventListener("resize", this.resize);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.resize);
     }
 
-    resize() {
+    resize=()=>{
         let hideNav=window.innerWidth <= 768;
         let showDrawer=this.state.showDrawer;
         let sideBarMarginLeft=this.state.sideBarMarginLeft;
@@ -87,12 +90,15 @@ class Index extends React.Component {
                             </Sider>
                         }
                         <Layout style={{marginLeft: this.state.sideBarMarginLeft}}>
-                            <Header style={{background: '#fff', padding: 0}}>
+                            <Header style={{background: '#fff', padding: 0,display:'flex',flexDirection:'row',alignItems:"center"}}>
                                 {this.state.hideNav&&<Icon
                                     className="trigger"
                                     type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                                     onClick={this.toggle}
                                 />}
+                                <Avatar style={{ backgroundColor: this.state.color, verticalAlign: 'middle' }} size="large">
+                                    {this.state.user}
+                                </Avatar>
                             </Header>
                             <Content style={{margin: '16px 16px 0', overflow: 'initial'}}>
                                 <div style={{padding: 16, background: '#fff', minHeight: '82vh'}}>
@@ -130,14 +136,13 @@ class Index extends React.Component {
                                         <Route exact path={'/advertise'} component={Advertise}/>
                                         <Route exact path={'/product'} component={ProductAdding}/>
                                         <Redirect to={'/notfound'}/>
-
-
                                     </Switch>
                                 </div>
                             </Content>
                             <Footer style={{textAlign: 'center'}}>
                                 Ant Design ©2018 Created by Ant UED
                             </Footer>
+                            <BackTop />
                         </Layout>
                     </Layout>
 

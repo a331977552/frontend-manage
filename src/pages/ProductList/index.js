@@ -46,9 +46,7 @@ state={
 
     }
 
-    componentWillMount() {
 
-    }
     componentDidMount() {
         this.loadProducts(this.state.page);
     }
