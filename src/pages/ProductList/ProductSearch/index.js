@@ -1,9 +1,7 @@
 import {AutoComplete, Button, Col, Icon, Input, Select} from "antd";
 import React from "react";
 import {getProductAllNames} from "../../../Api/ProductApi";
-
-
-
+import css from "./index.css"
 
 export default class index extends React.Component{
 
@@ -69,22 +67,25 @@ export default class index extends React.Component{
 
     render() {
 
-        return <AutoComplete
-            size="large"
-            onSelect={this.onSelect}
-            onSearch={this.handleSearch}
-            placeholder="产品名称"
-            optionLabelProp="text"
-            dataSource={this.state.results}
-            style={{width:'500px'}}>
-            <Input
-                suffix={(
-                    <Button className="search-btn" size="large" type="primary">
-                        <Icon type="search" />
-                    </Button>
-                )}
-            />
-        </AutoComplete>
+        return <div className="global-search-wrapper" style={{ width: '100%' }}>
+            <AutoComplete
+                className="global-search"
+                size="large"
+                style={{ width: '100%' }}
+                dataSource={this.state.results}
+                onSearch={this.handleSearch}
+                placeholder="商品名称"
+                optionLabelProp="text"
+            >
+                <Input
+                    suffix={(
+                        <Button className="search-btn" size="large" type="primary">
+                            <Icon type="search" />
+                        </Button>
+                    )}
+                />
+            </AutoComplete>
+        </div>
     }
 
 

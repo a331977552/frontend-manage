@@ -1,4 +1,4 @@
-import {Menu, Icon} from 'antd';
+import {Menu, Icon, Drawer} from 'antd/lib/index';
 import React from 'react';
 import './index.css';
 import {Link, withRouter} from "react-router-dom";
@@ -43,10 +43,8 @@ class Index extends React.Component {
 
 
 			]
-		}
+		},
 	}
-
-
 	render() {
 		const {pathname} = this.props.location;
 		return (

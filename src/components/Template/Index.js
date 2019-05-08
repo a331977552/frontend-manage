@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "../Loading";
 import {Layout, PageHeader} from "antd";
-import NavLeft from "../NavLeft";
+import NavLeft from "../../pages/Dashboard/NavLeft";
 import ProductList from "../../pages/ProductList";
 import Orders from "../../pages/Orders";
 import Category from "../../pages/Category";

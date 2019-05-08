@@ -117,13 +117,10 @@ state={
                         loadingSuccess ?
                             empty? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/> :
                                 (<div>
-                                        <Row gutter={8}  style={{marginBottom:20}} >
-                                            <Col align={"middle"}>
+                                        <Row gutter={8}  style={{marginBottom:20}} type="flex" justify="center"  >
+                                            <Col  span={8} xs={24} sm={24} md={16} xl={12} xxl={8} align={"middle"}>
                                             <ProductSearch />
-
                                             </Col>
-
-
                                         </Row>
                                                 <Row gutter={8} >
                                                     {content.map((product,index)=>
