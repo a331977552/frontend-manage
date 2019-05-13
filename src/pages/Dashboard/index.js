@@ -8,6 +8,7 @@ import Advertise from '../Advertise'
 import Orders from '../Orders'
 import ProductAdding from '../ProductAdding'
 import ProductList from '../ProductList'
+import Header from './Header'
 import './index.css';
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {connect} from "react-redux";
@@ -15,9 +16,9 @@ import * as InitialActions from "./Actions/InitialActions";
 import {bindActionCreators} from "redux";
 import Loading from "../../components/Loading";
 import RetryButton from "../../components/RetryButton";
-
+import Footer from './Footer'
 const {
-    Header, Content, Footer, Sider,
+     Content, Sider,
 } = Layout;
 
 class Index extends React.Component {
@@ -27,7 +28,7 @@ class Index extends React.Component {
         errorMessage: null,
         hideNav: window.innerWidth <= 768,
         showDrawer:false,
-        sideBarMarginLeft:window.innerWidth <= 768?0:200
+        sideBarMarginLeft:window.innerWidth <= 768?0:200,
 
     }
 
@@ -40,7 +41,8 @@ class Index extends React.Component {
 
     toggle = () => {
         this.setState({
-            showDrawer: !this.state.showDrawer,
+            showDrawer:!this.state.showDrawer,
+            collapsed:!this.state.collapsed
         });
     }
 
@@ -57,14 +59,17 @@ class Index extends React.Component {
         let hideNav=window.innerWidth <= 768;
         let showDrawer=this.state.showDrawer;
         let sideBarMarginLeft=this.state.sideBarMarginLeft;
+        let collapsed=!this.state.collapsed
         if(!hideNav&&this.state.hideNav){
             showDrawer=false;
             sideBarMarginLeft=200;
+            collapsed=false;
         }else if(!this.state.hideNav&&hideNav){
             sideBarMarginLeft=0;
             showDrawer=false;
+            collapsed=true;
         }
-        this.setState({hideNav: hideNav,showDrawer:showDrawer,sideBarMarginLeft:sideBarMarginLeft});
+        this.setState({hideNav: hideNav,showDrawer:showDrawer,sideBarMarginLeft:sideBarMarginLeft,collapsed:collapsed});
     }
 
     onRetryClicked = (e) => {
@@ -90,16 +95,7 @@ class Index extends React.Component {
                             </Sider>
                         }
                         <Layout style={{marginLeft: this.state.sideBarMarginLeft}}>
-                            <Header style={{background: '#fff', padding: 0,display:'flex',flexDirection:'row',alignItems:"center"}}>
-                                {this.state.hideNav&&<Icon
-                                    className="trigger"
-                                    type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                                    onClick={this.toggle}
-                                />}
-                                <Avatar style={{ backgroundColor: this.state.color, verticalAlign: 'middle' }} size="large">
-                                    {this.state.user}
-                                </Avatar>
-                            </Header>
+                            <Header toggle={this.toggle} user={this.state.user} collapsed={this.state.collapsed} hideNav={this.state.hideNav} />
                             <Content style={{margin: '16px 16px 0', overflow: 'initial'}}>
                                 <div style={{padding: 16, background: '#fff', minHeight: '82vh'}}>
                                     <Switch>
@@ -139,9 +135,9 @@ class Index extends React.Component {
                                     </Switch>
                                 </div>
                             </Content>
-                            <Footer style={{textAlign: 'center'}}>
-                                Ant Design ©2018 Created by Ant UED
-                            </Footer>
+                            <Layout.Footer style={{textAlign: 'center'}}>
+                                <Footer/>
+                            </Layout.Footer>
                             <BackTop />
                         </Layout>
                     </Layout>
@@ -158,7 +154,8 @@ class Index extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        ...state.initialReducer
+        ...state.initialReducer,
+
     }
 }
 export default connect(mapStateToProps)(Index);
