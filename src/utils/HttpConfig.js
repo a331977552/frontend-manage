@@ -7,6 +7,7 @@ const FORBIDDEN=403;
 const REDIRECT=302;
 
 axios.interceptors.request.use(function (config) {
+
     return config;
 }, function (error) {
     return Promise.reject(error);

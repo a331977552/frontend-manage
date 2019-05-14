@@ -7,6 +7,7 @@ export   function post(url,data,notificationConfig={showNotification:false,succe
 	if(notificationConfig.showNotification){
 		hide=message.loading("正在执行...");
 	}
+
 	axios.post(url,data).then(function (response) {
 		if(notificationConfig.showNotification){
 			message.success(notificationConfig.successMessage +" code:"+ response.status)
