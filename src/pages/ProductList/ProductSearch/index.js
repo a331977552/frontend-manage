@@ -1,7 +1,7 @@
-import {AutoComplete, Button, Col, Icon, Input, Select} from "antd";
+import {AutoComplete, Button, Icon, Input, Select} from "antd";
 import React from "react";
 import {getProductAllNames} from "../../../Api/ProductApi";
-import css from "./index.css"
+import  "./index.css"
 
 export default class index extends React.Component{
 

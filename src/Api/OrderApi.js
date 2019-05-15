@@ -1,19 +1,14 @@
 
 import {post} from './ApiGateway'
 import orders from './fakeData/orders'
-import productNames from './fakeData/productNames'
 
-import {
-	addingProductSuccess,
-	deleteProductSuccess,
-	updateProductSuccess
-} from "../pages/ProductAdding/store/ProductActions";
+
 const prefix="/order/"
 
-export function updateOrder(product,dispatch) {
-	post(prefix+'update',{...product},{showNotification:true,successMessage:"修改成功",failedMessage:"修改失败"},
+//TODO
+export function updateOrder(order) {
+	post(prefix+'update',{...order},{showNotification:true,successMessage:"修改成功",failedMessage:"修改失败"},
 		(response)=>{
-			dispatch(updateProductSuccess(product));
 		}
 	);
 }

@@ -6,13 +6,9 @@ import {Route, Switch, withRouter} from 'react-router-dom'
 import Loading from "./components/Loading";
 import RetryButton from "./components/RetryButton";
 import {getAllCategories} from "./Api/CategoryApi";
-import {login} from "./Api/UserApi";
 import {connect} from "react-redux";
 import Login from './pages/Login'
-import initReducer from "./store/initReducer";
 import * as initActionCreators from "./store/actionCreactors";
-import {useCookies, withCookies} from 'react-cookie';
-import {bindActionCreators} from "redux";
 
 class App extends React.Component {
     state = {
@@ -20,8 +16,7 @@ class App extends React.Component {
         sideBarMarginLeft: 200,
         loading: true, loadingSuccess: false,
         errorMessage: null,
-        categories: [],
-        loginNeeded:false,
+        categories: []
     }
     onRetryClicked = (e) => {
         this.setState({
@@ -32,30 +27,15 @@ class App extends React.Component {
         this.init();
     }
 
-    constructor(props) {
-        super(props);
-        bindActionCreators(initActionCreators, this.props.dispatch);
-    }
+
+
 
     componentDidMount() {
-        const {cookies} = this.props;
-        const user = cookies.get('user');
-        if (user) {
-            this.setState({
-                loginNeeded:false
-            })
             if (this.state.loading && !this.state.loadingSuccess) {
                 this.init();
             }
-        } else {
-            this.setState({
-                loginNeeded:true
-            })
-            this.props.history.push("/login");
-        }
-
-
     }
+
 
     init() {
         getAllCategories((categories) => {
@@ -64,7 +44,7 @@ class App extends React.Component {
                 loading: false,
                 loadingSuccess: true
             });
-            this.props.dispatch(initActionCreators.initializedSuccessfully(categories))
+            this.props.initializedSuccessfully(categories)
         }, (error) => {
             this.setState({
                 loading: false,
@@ -76,24 +56,28 @@ class App extends React.Component {
 
 
     render() {
-        const {loading, loadingSuccess, errorMessage,loginNeeded} = this.state;
+        const {loading, loadingSuccess, errorMessage} = this.state;
         return (
-            <div>
-                {loginNeeded?<Route path={'/login'} component={Login}/>:
-                    loading ? <Loading/> : loadingSuccess ? (
-                    <div>
-                        <Switch>
-                            <Route path={'/notfound'} component={NotFound}/>
-
-                            <Route path={'/'} component={Dashboard}/>
-                        </Switch>
-                    </div>
-                ) : (<RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked}/>)
-                }
+            <div>{loading ? <Loading/> : loadingSuccess ? (
+                <div>
+                    <Switch>
+                        <Route path={'/notfound'} component={NotFound}/>
+                        <Route path={'/login'} component={Login}/>:
+                        <Route path={'/'} component={Dashboard}/>
+                    </Switch>
+                </div>
+            ) : (<RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked}/>)
+            }
             </div>
         )
     }
 }
+const  mapDispatchToProps=(dispatch,ownProps)=>{
+    return {initializedSuccessfully:(categories)=>{
+            dispatch(initActionCreators.initializedSuccessfully(categories))
+        }
+    }
+}
 
-export default connect()(withRouter(withCookies(App)));
+export default connect(null,mapDispatchToProps)(withRouter(App));
 

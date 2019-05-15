@@ -22,8 +22,8 @@ export default function initReducer(state = initialState, action) {
             return {...state, categories: sortCategoryByPriority(state.categories)};
         case DELETE_CATEGORY_SUCCESSFULLY:
             return {...state, categories: filterDeletedCategory(state.categories, action.payload.deletedCategory)};
-
+        default:
+            return state;
     }
-    return state;
 
 }

@@ -6,7 +6,7 @@ import {
 	Upload, Modal, Radio, Select, message
 } from 'antd';
 import {connect} from "react-redux";
-import {addProduct,updateProduct} from "../../../Api/ProductApi";
+import {updateProduct} from "../../../Api/ProductApi";
 
 const formItemLayout = {
 	labelCol: {

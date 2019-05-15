@@ -1,6 +1,5 @@
 
 import {post} from './ApiGateway'
-import products from './fakeData/products'
 import category from './fakeData/category'
 import * as  actionCreactors from '../store/actionCreactors'
 

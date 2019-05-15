@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import {Col, Divider, Empty, Icon, Pagination, Row, message, Modal, AutoComplete, Button, Input} from "antd";
+import {Col, Empty, Pagination, Row, message, Modal, } from "antd";
 import ProductCard from './ProductCard'
 import ProductSearch from './ProductSearch'
 import ProductUpdate from './ProductUpdate/Index'
@@ -30,10 +30,7 @@ state={
     productUpdateModalVisible:false,
     updatingProduct:null,
 }
-    constructor(props) {
-        super(props);
-        const {dispatch} = this.props;
-    }
+
 
     onCardClicked = (product, index) => {
         // this.props.dispatch(productActionCreators.productEditing(product));

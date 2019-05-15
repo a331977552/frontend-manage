@@ -1,7 +1,6 @@
-import {Icon, Col, Card} from 'antd/lib/index';
+import { Col, Card} from 'antd/lib/index';
 import React from 'react';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
-import imgPlaceHolder from '../../../resources/imgs/default-placeholder-200x200.png'
 import './index.css';
 
 class Index extends React.Component {

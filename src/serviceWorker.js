@@ -121,7 +121,7 @@ function checkValidServiceWorker(swUrl, config) {
     })
     .catch(() => {
       console.log(
-        'No internet connection found. Index is running in offline mode.'
+        'No internet connection found. index is running in offline mode.'
       );
     });
 }

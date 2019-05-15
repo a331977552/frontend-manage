@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 import {BrowserRouter as Router} from "react-router-dom";
 import productReducer from './pages/ProductList/store/productReducer'
-import initialReducer from './pages/Dashboard/Reducers/InitialReducer'
+import loginReducer from './pages/Login/store/loginReducer'
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
@@ -16,9 +16,9 @@ import initReducer from "./store/initReducer";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const MainReducer = combineReducers({
     productReducer,
-    initialReducer,
     categoryReducer,
-    initReducer
+    initReducer,
+    loginReducer
 })
 
 
@@ -27,7 +27,12 @@ const store = createStore(MainReducer, /* preloadedState, */ composeEnhancers(ap
 
 
 ReactDOM.render(
-    <CookiesProvider><Provider store={store}><Router><App /></Router></Provider>
+    <CookiesProvider><Provider store={store}><Router>
+
+
+        <App />
+
+    </Router></Provider>
     </CookiesProvider>
         , document.getElementById('root'));
 

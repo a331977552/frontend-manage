@@ -5,7 +5,7 @@ import {Row, Col, Form, Button, Modal, Input, Empty} from 'antd';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as categoryActions from './store/actionCreator'
-import  {addCategory, getAllCategories} from "../../Api/CategoryApi";
+import  {addCategory} from "../../Api/CategoryApi";
 
 
 class Index extends React.Component {

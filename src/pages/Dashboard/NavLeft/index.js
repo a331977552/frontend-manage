@@ -1,4 +1,4 @@
-import {Menu, Icon, Drawer} from 'antd/lib/index';
+import {Menu, Icon} from 'antd/lib/index';
 import React from 'react';
 import './index.css';
 import {Link, withRouter} from "react-router-dom";
@@ -45,6 +45,10 @@ class Index extends React.Component {
 			]
 		},
 	}
+	componentDidMount() {
+		console.log("navleft componentDidMount")
+	}
+
 	render() {
 		//prevent update unmounted component
 		if(window.innerWidth<768)

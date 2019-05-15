@@ -2,7 +2,7 @@ import {
 	ADDING_PRODUCT_SUCCESS,
 	DELETING_PRODUCT_SUCCESS,
 	EDITING_PRODUCT_SUCCESS
-} from "../../Dashboard/Actions/InitialActions";
+} from "./constants";
 
 
 export function addingProductSuccess(product){

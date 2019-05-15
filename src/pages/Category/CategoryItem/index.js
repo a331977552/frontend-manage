@@ -2,7 +2,6 @@ import {
 	Form, Icon, Input, Button, Popconfirm, notification
 } from 'antd';
 import React from "react";
-import {connect} from "react-redux";
 
 
 import {deleteCategoryById, editCategory} from "../../../Api/CategoryApi";
@@ -20,9 +19,6 @@ class Index extends React.Component {
 		deletingSuccess:false,
 		deleting:false,
 		errorMessage:null,
-	}
-	constructor(props) {
-		super(props)
 	}
 
 

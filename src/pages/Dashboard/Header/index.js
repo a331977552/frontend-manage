@@ -1,30 +1,50 @@
 import {Avatar, Icon, Layout, Popover} from "antd";
 import React from "react";
-import css from './index.css'
-const text = <span>Title</span>;
-const content = (
-    <div>
-        <p>Content</p>
-        <p>Content</p>
-    </div>
-);
-export  default  function index(props){
+import  './index.css'
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
+import * as loginActions from "../../Login/store/actionCreators";
 
 
-return <Layout.Header style={{ background: '#fff', padding: 0,display:'flex',flexDirection:'row',alignItems:"center"}}>
-    {props.hideNav&&<Icon
-        className="trigger"
-        type={props.collapsed ? 'menu-unfold' : 'menu-fold'}
-        onClick={props.toggle}
-    />}
 
-    <div style={{flexGrow:1,}}/>
 
-    <Popover placement="bottomRight" title={text} content={content}  trigger="click">
-        <Avatar className={'avatar'} size="large">
-            {props.user}123
-        </Avatar>
-    </Popover>
+ class index extends React.Component{
 
-</Layout.Header>
+    onLoginOutClick=(e)=>{
+       this.props.loginOut();
+       this.props.history.push("/login")
+    }
+
+   render() {
+       return <Layout.Header style={{ background: '#fff', padding: 0,display:'flex',flexDirection:'row',alignItems:"center"}}>
+           {this.props.hideNav&&<Icon
+               className="trigger"
+               type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+               onClick={this.props.toggle}
+           />}
+
+           <div style={{flexGrow:1,}}/>
+
+           <Popover placement="bottomRight" title={<span>Title</span>} content={
+               <div>
+               <p>个人信息</p>
+               <p onClick={this.onLoginOutClick}>退出</p>
+           </div>}  trigger="click">
+               <Avatar className={'avatar'} size="large">
+                   {this.props.user}
+               </Avatar>
+           </Popover>
+
+       </Layout.Header>
+   }
+
+
 }
+
+export  default connect(null,(dispatch)=>{
+
+    return {loginOut:()=> dispatch(loginActions.loginOut())
+
+    }
+
+})(withRouter(index));

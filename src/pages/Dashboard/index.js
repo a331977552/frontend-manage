@@ -1,4 +1,4 @@
-import {Avatar, BackTop, Icon, Layout, PageHeader} from 'antd';
+import { BackTop, Layout, PageHeader} from 'antd';
 import React from 'react';
 import NavLeft from './NavLeft'
 import NavDrawer from './NavDrawer'
@@ -11,33 +11,20 @@ import ProductList from '../ProductList'
 import Header from './Header'
 import './index.css';
 import {Redirect, Route, Switch} from 'react-router-dom'
-import {connect} from "react-redux";
-import * as InitialActions from "./Actions/InitialActions";
-import {bindActionCreators} from "redux";
-import Loading from "../../components/Loading";
-import RetryButton from "../../components/RetryButton";
 import Footer from './Footer'
+import {connect} from "react-redux";
 const {
      Content, Sider,
 } = Layout;
 
-class Index extends React.Component {
+class index extends React.Component {
     state = {
         collapsed: false,
-        loading: false, loadingSuccess: true,
-        errorMessage: null,
         hideNav: window.innerWidth <= 768,
         showDrawer:false,
         sideBarMarginLeft:window.innerWidth <= 768?0:200,
-
     }
 
-    constructor(props) {
-        super(props)
-        const {dispatch} = this.props;
-        bindActionCreators(InitialActions, dispatch)
-
-    }
 
     toggle = () => {
         this.setState({
@@ -49,6 +36,12 @@ class Index extends React.Component {
 
 
     componentDidMount() {
+
+        const user=this.props.user;
+        if (!user) {
+            this.props.history.push("/login");
+            return ;
+        }
         window.addEventListener("resize", this.resize);
     }
     componentWillUnmount() {
@@ -72,15 +65,14 @@ class Index extends React.Component {
         this.setState({hideNav: hideNav,showDrawer:showDrawer,sideBarMarginLeft:sideBarMarginLeft,collapsed:collapsed});
     }
 
-    onRetryClicked = (e) => {
-        this.props.dispatch(InitialActions.initialLoading());
-    }
 
     render() {
-        const {loading, loadingSuccess, errorMessage} = this.state;
+        if(!this.props.user){
+            return <div>illegal Access</div>
+        }
         return (
+
             <div>
-                {loading ? <Loading/> : loadingSuccess ? (
                     <Layout>
                         {this.state.hideNav?
                             <NavDrawer visible={this.state.showDrawer} onDrawerClose={this.toggle}/>
@@ -96,8 +88,8 @@ class Index extends React.Component {
                         }
                         <Layout style={{marginLeft: this.state.sideBarMarginLeft}}>
                             <Header toggle={this.toggle} user={this.state.user} collapsed={this.state.collapsed} hideNav={this.state.hideNav} />
-                            <Content style={{margin: '16px 16px 0', overflow: 'initial'}}>
-                                <div style={{padding: 16, background: '#fff', minHeight: '82vh'}}>
+                            <Content style={{margin: '16px 16px 0'}}>
+                                <div style={{padding: 16, background: '#fff', minHeight: '88vh'}}>
                                     <Switch>
                                         <Route exact path={'/'} component={() => {
                                             return <PageHeader
@@ -141,10 +133,6 @@ class Index extends React.Component {
                             <BackTop />
                         </Layout>
                     </Layout>
-
-                ) : (<RetryButton message={errorMessage} onRetryClicked={this.onRetryClicked}/>)
-                }
-
             </div>
 
         );
@@ -152,11 +140,7 @@ class Index extends React.Component {
 }
 
 
-const mapStateToProps = state => {
-    return {
-        ...state.initialReducer,
-
-    }
-}
-export default connect(mapStateToProps)(Index);
+export default connect((state)=>{
+    return state.loginReducer
+})(index);
 
